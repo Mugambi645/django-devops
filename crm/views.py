@@ -1,5 +1,23 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
+
+from . models import DailyNote
+from . forms import DailyNoteForm
+
 
 def home(request):
 
-    return render(request, "index.html")
+    if request.method == "POST":
+        form = DailyNoteForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            return redirect("home")
+    else:
+
+        form = DailyNoteForm()
+
+    notes = DailyNote.objects.all()
+
+
+    return render(request, "index.html", {"form": form, "notes": notes})

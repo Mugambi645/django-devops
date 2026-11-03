@@ -1,3 +1,26 @@
 <html>
-    <h1> Hello world!</h1>
+    <head>
+
+</head>
+        <body>
+            <h2>Welcome to DailyNotes!</h2>
+            <hr/>
+            <h3>Add a new note</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save Note</button>
+
+            </form>
+            {% if notes %}
+                <hr/>
+                <h3>Existing Notes</h3>
+                <ul>
+                    {% for note in notes %}
+                        <li>{{ note.title }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </body>
+    
     </html>
